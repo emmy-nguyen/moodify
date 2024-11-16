@@ -35,6 +35,9 @@ export const moodRoute = new Hono()
     }
     return c.json({ expense });
   })
+  .get("total-spent", async (c) => {
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+  })
   .delete("/:id{[0-9+]}", (c) => {
     const moodId = Number.parseInt(c.req.param("id"));
     const index = fakeMood.findIndex((mood) => mood.id === moodId);

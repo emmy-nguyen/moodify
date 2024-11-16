@@ -1,32 +1,37 @@
-import "./App.css";
-import { Button } from "./components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
-import { Calendar } from "lucide-react";
-// import {
-//   Card,
-//   CardContent,
-//   CardHeader,
-//   CardTitle,
-//   Button,
-//   Calendar,
-// } from "@/components/ui";
+import { createFileRoute } from "@tanstack/react-router";
+// import "./App.css";
+// import { api } from "./lib/api";
+// import { useState } from "react";
 // import { Line } from "react-chartjs-2";
 // import { useQuery } from "@tanstack/react-query";
-function App() {
-  // const [count, setCount] = useState(0);
-  // const { data: moods } = useQuery(["moods"], fetchMoodData);
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Calendar } from "../components/ui/calendar";
 
-  // const moodTrendData = {
-  //   labels: moods?.last7Days.map((day) => day.date) || [],
-  //   datasets: [
-  //     {
-  //       label: "Mood Trend",
-  //       data: moods?.last7Days.map((day) => day.score) || [],
-  //       borderColor: "#4ade80", // Green color for mood trend
-  //       backgroundColor: "rgba(74, 222, 128, 0.2)",
-  //     },
-  //   ],
-  // };
+export const Route = createFileRoute("/")({
+  component: Index,
+});
+// async function getTotalSpent() {
+//   const result = await api.mood["total-spent"].$get();
+//   if (res.ok) {
+//     throw new Error("server error");
+//   }
+//   const data = await res.json();
+//   return;
+// }
+function Index() {
+  // const { isPending, error, data } = useQuery({
+  //   queryKey: ["get-total-spent"],
+  //   queryFn: getTotalSpent,
+  // });
+  // if (isPending) return "Loading...";
+  // if (error) return "An error occurred";
+
   return (
     <>
       <div className="space-y-6 p-4 md:p-8">
@@ -56,7 +61,7 @@ function App() {
             </CardHeader>
             <CardContent>
               <ul className="list-disc pl-4">
-                <li>You’ve felt mostly happy this week!</li>
+                <li>You've felt mostly happy this week!</li>
                 <li>Tuesday was your best day.</li>
               </ul>
             </CardContent>
@@ -126,8 +131,6 @@ function App() {
     </>
   );
 }
-
-export default App;
 
 // export default function Home() {
 // const { data: moods } = useQuery(["moods"], fetchMoodData);
