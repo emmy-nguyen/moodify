@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ShowMoodImport } from './routes/show-mood'
 import { Route as MoodsImport } from './routes/moods'
 import { Route as CreateMoodImport } from './routes/create-mood'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const ShowMoodRoute = ShowMoodImport.update({
+  id: '/show-mood',
+  path: '/show-mood',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const MoodsRoute = MoodsImport.update({
   id: '/moods',
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoodsImport
       parentRoute: typeof rootRoute
     }
+    '/show-mood': {
+      id: '/show-mood'
+      path: '/show-mood'
+      fullPath: '/show-mood'
+      preLoaderRoute: typeof ShowMoodImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/create-mood': typeof CreateMoodRoute
   '/moods': typeof MoodsRoute
+  '/show-mood': typeof ShowMoodRoute
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +106,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/create-mood': typeof CreateMoodRoute
   '/moods': typeof MoodsRoute
+  '/show-mood': typeof ShowMoodRoute
 }
 
 export interface FileRoutesById {
@@ -99,14 +115,15 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/create-mood': typeof CreateMoodRoute
   '/moods': typeof MoodsRoute
+  '/show-mood': typeof ShowMoodRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/create-mood' | '/moods'
+  fullPaths: '/' | '/about' | '/create-mood' | '/moods' | '/show-mood'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/create-mood' | '/moods'
-  id: '__root__' | '/' | '/about' | '/create-mood' | '/moods'
+  to: '/' | '/about' | '/create-mood' | '/moods' | '/show-mood'
+  id: '__root__' | '/' | '/about' | '/create-mood' | '/moods' | '/show-mood'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +132,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CreateMoodRoute: typeof CreateMoodRoute
   MoodsRoute: typeof MoodsRoute
+  ShowMoodRoute: typeof ShowMoodRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CreateMoodRoute: CreateMoodRoute,
   MoodsRoute: MoodsRoute,
+  ShowMoodRoute: ShowMoodRoute,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +156,8 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/create-mood",
-        "/moods"
+        "/moods",
+        "/show-mood"
       ]
     },
     "/": {
@@ -151,6 +171,9 @@ export const routeTree = rootRoute
     },
     "/moods": {
       "filePath": "moods.tsx"
+    },
+    "/show-mood": {
+      "filePath": "show-mood.tsx"
     }
   }
 }

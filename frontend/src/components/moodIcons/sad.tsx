@@ -1,4 +1,4 @@
-export default function Meh() {
+export default function Sad() {
   return (
     <>
       <svg
@@ -8,26 +8,32 @@ export default function Meh() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_1_95)">
-          <g filter="url(#filter0_i_1_95)">
-            <circle cx="24" cy="24" r="24" fill="url(#paint0_radial_1_95)" />
+        <g clip-path="url(#clip0_1_61)">
+          <g filter="url(#filter0_i_1_61)">
+            <circle cx="24" cy="24" r="24" fill="url(#paint0_radial_1_61)" />
           </g>
           <path
-            d="M19 33.5H24.5H30"
+            d="M19 33.5V33.5C21.7251 29.7839 27.2749 29.7839 30 33.5V33.5"
             stroke="#DE6102"
             stroke-width="1.5"
             stroke-linecap="round"
           />
-          <circle cx="32" cy="24" r="2" fill="#232333" />
-          <circle cx="32" cy="24" r="2" fill="#232333" />
-          <circle cx="32" cy="24" r="2" fill="#232333" />
-          <circle cx="17" cy="24" r="2" fill="#232333" />
-          <circle cx="17" cy="24" r="2" fill="#232333" />
-          <circle cx="17" cy="24" r="2" fill="#232333" />
+          <path
+            d="M13 23L13.5938 23.4241C15.3323 24.6659 17.6677 24.6659 19.4062 23.4241L20 23"
+            stroke="#232333"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+          <path
+            d="M29 23L29.5938 23.4241C31.3323 24.6659 33.6677 24.6659 35.4062 23.4241L36 23"
+            stroke="#232333"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
         </g>
         <defs>
           <filter
-            id="filter0_i_1_95"
+            id="filter0_i_1_61"
             x="-1"
             y="0"
             width="49"
@@ -58,11 +64,11 @@ export default function Meh() {
             <feBlend
               mode="normal"
               in2="shape"
-              result="effect1_innerShadow_1_95"
+              result="effect1_innerShadow_1_61"
             />
           </filter>
           <radialGradient
-            id="paint0_radial_1_95"
+            id="paint0_radial_1_61"
             cx="0"
             cy="0"
             r="1"
@@ -75,12 +81,12 @@ export default function Meh() {
             <stop offset="0.791667" stop-color="#F2B456" />
             <stop offset="1" stop-color="#F78228" />
           </radialGradient>
-          <clipPath id="clip0_1_95">
+          <clipPath id="clip0_1_61">
             <rect width="48" height="48" fill="white" />
           </clipPath>
         </defs>
       </svg>
-      <span className="text-sm">Meh</span>
+      <span className="text-sm">Sad</span>
     </>
   );
 }
