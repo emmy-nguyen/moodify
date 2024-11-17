@@ -10,142 +10,148 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as ShowMoodImport } from './routes/show-mood'
-import { Route as MoodsImport } from './routes/moods'
-import { Route as CreateMoodImport } from './routes/create-mood'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as ShowMoodImport } from "./routes/show-mood";
+import { Route as CreateMoodImport } from "./routes/create-mood";
+import { Route as AllMoodsImport } from "./routes/all-moods";
+import { Route as AboutImport } from "./routes/about";
+import { Route as IndexImport } from "./routes/index";
 
 // Create/Update Routes
 
 const ShowMoodRoute = ShowMoodImport.update({
-  id: '/show-mood',
-  path: '/show-mood',
+  id: "/show-mood",
+  path: "/show-mood",
   getParentRoute: () => rootRoute,
-} as any)
-
-const MoodsRoute = MoodsImport.update({
-  id: '/moods',
-  path: '/moods',
-  getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const CreateMoodRoute = CreateMoodImport.update({
-  id: '/create-mood',
-  path: '/create-mood',
+  id: "/create-mood",
+  path: "/create-mood",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const AllMoodsRoute = AllMoodsImport.update({
+  id: "/all-moods",
+  path: "/all-moods",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+  id: "/about",
+  path: "/about",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
-    '/create-mood': {
-      id: '/create-mood'
-      path: '/create-mood'
-      fullPath: '/create-mood'
-      preLoaderRoute: typeof CreateMoodImport
-      parentRoute: typeof rootRoute
-    }
-    '/moods': {
-      id: '/moods'
-      path: '/moods'
-      fullPath: '/moods'
-      preLoaderRoute: typeof MoodsImport
-      parentRoute: typeof rootRoute
-    }
-    '/show-mood': {
-      id: '/show-mood'
-      path: '/show-mood'
-      fullPath: '/show-mood'
-      preLoaderRoute: typeof ShowMoodImport
-      parentRoute: typeof rootRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/about": {
+      id: "/about";
+      path: "/about";
+      fullPath: "/about";
+      preLoaderRoute: typeof AboutImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/all-moods": {
+      id: "/all-moods";
+      path: "/all-moods";
+      fullPath: "/all-moods";
+      preLoaderRoute: typeof AllMoodsImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/create-mood": {
+      id: "/create-mood";
+      path: "/create-mood";
+      fullPath: "/create-mood";
+      preLoaderRoute: typeof CreateMoodImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/show-mood": {
+      id: "/show-mood";
+      path: "/show-mood";
+      fullPath: "/show-mood";
+      preLoaderRoute: typeof ShowMoodImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/create-mood': typeof CreateMoodRoute
-  '/moods': typeof MoodsRoute
-  '/show-mood': typeof ShowMoodRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/all-moods": typeof AllMoodsRoute;
+  "/create-mood": typeof CreateMoodRoute;
+  "/show-mood": typeof ShowMoodRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/create-mood': typeof CreateMoodRoute
-  '/moods': typeof MoodsRoute
-  '/show-mood': typeof ShowMoodRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/all-moods": typeof AllMoodsRoute;
+  "/create-mood": typeof CreateMoodRoute;
+  "/show-mood": typeof ShowMoodRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/create-mood': typeof CreateMoodRoute
-  '/moods': typeof MoodsRoute
-  '/show-mood': typeof ShowMoodRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/all-moods": typeof AllMoodsRoute;
+  "/create-mood": typeof CreateMoodRoute;
+  "/show-mood": typeof ShowMoodRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/create-mood' | '/moods' | '/show-mood'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/create-mood' | '/moods' | '/show-mood'
-  id: '__root__' | '/' | '/about' | '/create-mood' | '/moods' | '/show-mood'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/about" | "/all-moods" | "/create-mood" | "/show-mood";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/about" | "/all-moods" | "/create-mood" | "/show-mood";
+  id:
+    | "__root__"
+    | "/"
+    | "/about"
+    | "/all-moods"
+    | "/create-mood"
+    | "/show-mood";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  CreateMoodRoute: typeof CreateMoodRoute
-  MoodsRoute: typeof MoodsRoute
-  ShowMoodRoute: typeof ShowMoodRoute
+  IndexRoute: typeof IndexRoute;
+  AboutRoute: typeof AboutRoute;
+  AllMoodsRoute: typeof AllMoodsRoute;
+  CreateMoodRoute: typeof CreateMoodRoute;
+  ShowMoodRoute: typeof ShowMoodRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AllMoodsRoute: AllMoodsRoute,
   CreateMoodRoute: CreateMoodRoute,
-  MoodsRoute: MoodsRoute,
   ShowMoodRoute: ShowMoodRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -155,8 +161,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/all-moods",
         "/create-mood",
-        "/moods",
         "/show-mood"
       ]
     },
@@ -166,11 +172,11 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
+    "/all-moods": {
+      "filePath": "all-moods.tsx"
+    },
     "/create-mood": {
       "filePath": "create-mood.tsx"
-    },
-    "/moods": {
-      "filePath": "moods.tsx"
     },
     "/show-mood": {
       "filePath": "show-mood.tsx"

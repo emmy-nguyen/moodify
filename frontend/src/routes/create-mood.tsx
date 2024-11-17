@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
-import type { FieldApi } from "@tanstack/react-form";
+// import type { FieldApi } from "@tanstack/react-form";
 import Happy from "../components/moodIcons/happy";
 import Super from "../components/moodIcons/super";
 import Meh from "../components/moodIcons/meh";
@@ -11,23 +11,39 @@ import { Button } from "../components/ui/button";
 import { Textarea } from "../components/ui/textarea";
 import { Input } from "../components/ui/input";
 import Sad from "../components/moodIcons/sad";
+import { api } from "../lib/api";
 
 export const Route = createFileRoute("/create-mood")({
   component: CreateMood,
 });
-
+type Mood = "happy" | "super" | "meh" | "sad" | "angry";
+const moodIcons: Record<Mood, JSX.Element> = {
+  super: <Super />,
+  happy: <Happy />,
+  meh: <Meh />,
+  sad: <Sad />,
+  angry: <Angry />,
+};
 function CreateMood() {
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
       date: new Date(),
       time: "",
-      mood: "",
+      mood: "" as Mood,
       category: "",
       notes: "",
-      image: null,
+      image: "",
     },
     onSubmit: async ({ value }) => {
+      const formattedValue = { ...value, date: value.date.toISOString() };
       await new Promise((resolve) => setTimeout(resolve, 3000));
+      const res = await api.mood.$post({ json: formattedValue });
+      console.log(res);
+      if (!res.ok) {
+        throw new Error("Server error");
+      }
+      navigate({ to: "/all-moods" });
       console.log(value);
     },
   });
@@ -80,7 +96,21 @@ function CreateMood() {
               )}
             />
             <div className="flex flex-row gap-3">
-              {["super", "happy", "meh", "bad", "angry"].map((mood) => (
+              {Object.entries(moodIcons).map(([mood, Icon]) => (
+                <button
+                  key={mood}
+                  type="button"
+                  className={`p-2 rounded hover:bg-blue-200 ${
+                    form.getFieldValue("mood") === mood
+                      ? "bg-blue-200"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => form.setFieldValue("mood", mood as Mood)}
+                >
+                  {Icon}
+                </button>
+              ))}
+              {/* {["super", "happy", "meh", "bad", "angry"].map((mood) => (
                 <button
                   key={mood}
                   type="button"
@@ -97,7 +127,7 @@ function CreateMood() {
                   {mood === "bad" && <Sad />}
                   {mood === "angry" && <Angry />}
                 </button>
-              ))}
+              ))} */}
             </div>
             <p>Category here</p>
             <div className="space-y-1">

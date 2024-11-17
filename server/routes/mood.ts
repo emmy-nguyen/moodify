@@ -4,28 +4,57 @@ import { z } from "zod";
 
 const moodSchema = z.object({
   id: z.number().int().positive().min(1),
-  title: z.string().min(3).max(100),
-  amount: z.number().int().positive(),
+  date: z.string().datetime(),
+  time: z.string(),
+  mood: z.enum(["super", "happy", "meh", "sad", "angry"]),
+  category: z.string(),
+  notes: z.string(),
+  image: z.string(),
 });
 type Mood = z.infer<typeof moodSchema>;
 const createMoodSchema = moodSchema.omit({ id: true });
 const fakeMood: Mood[] = [
-  { id: 1, title: "Groceries", amount: 40 },
-  { id: 2, title: "abc", amount: 40 },
-  { id: 3, title: "xyx", amount: 40 },
+  {
+    id: 1,
+    date: "2024-11-15",
+    time: "12:00 PM",
+    mood: "happy",
+    category: "work",
+    notes: "Meeting went well",
+    image: "url1",
+  },
+  {
+    id: 2,
+    date: "2024-11-14",
+    time: "3:00 PM",
+    mood: "sad",
+    category: "personal",
+    notes: "Lost something",
+    image: "url2",
+  },
+  {
+    id: 3,
+    date: "2024-11-13",
+    time: "9:00 AM",
+    mood: "super",
+    category: "health",
+    notes: "Ran 5 miles",
+    image: "url3",
+  },
 ];
 
 export const moodRoute = new Hono()
   .get("/", async (c) => {
-    return c.json({ expenses: fakeMood });
+    return c.json({ moods: fakeMood });
   })
   .post("/", zValidator("json", createMoodSchema), async (c) => {
     const data = await c.req.valid("json");
-    const expense = createMoodSchema.parse(data);
-    fakeMood.push({ ...expense, id: fakeMood.length + 1 });
+    console.log(data);
+    const mood = createMoodSchema.parse(data);
+    fakeMood.push({ ...mood, id: fakeMood.length + 1 });
     c.status(201);
-    console.log({ expense });
-    return c.json(expense);
+    console.log({ mood });
+    return c.json(mood);
   })
   .get("/:id{[0-9+]}", (c) => {
     const expenseId = Number.parseInt(c.req.param("id"));
