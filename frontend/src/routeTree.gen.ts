@@ -10,148 +10,211 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as ShowMoodImport } from "./routes/show-mood";
-import { Route as CreateMoodImport } from "./routes/create-mood";
-import { Route as AllMoodsImport } from "./routes/all-moods";
-import { Route as AboutImport } from "./routes/about";
-import { Route as IndexImport } from "./routes/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as ShowMoodImport } from './routes/show-mood'
+import { Route as AboutImport } from './routes/about'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
+import { Route as IndexImport } from './routes/index'
+import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedCreateMoodImport } from './routes/_authenticated/create-mood'
+import { Route as AuthenticatedAllMoodsImport } from './routes/_authenticated/all-moods'
 
 // Create/Update Routes
 
 const ShowMoodRoute = ShowMoodImport.update({
-  id: "/show-mood",
-  path: "/show-mood",
+  id: '/show-mood',
+  path: '/show-mood',
   getParentRoute: () => rootRoute,
-} as any);
-
-const CreateMoodRoute = CreateMoodImport.update({
-  id: "/create-mood",
-  path: "/create-mood",
-  getParentRoute: () => rootRoute,
-} as any);
-
-const AllMoodsRoute = AllMoodsImport.update({
-  id: "/all-moods",
-  path: "/all-moods",
-  getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AboutRoute = AboutImport.update({
-  id: "/about",
-  path: "/about",
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedCreateMoodRoute = AuthenticatedCreateMoodImport.update({
+  id: '/create-mood',
+  path: '/create-mood',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedAllMoodsRoute = AuthenticatedAllMoodsImport.update({
+  id: '/all-moods',
+  path: '/all-moods',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/about": {
-      id: "/about";
-      path: "/about";
-      fullPath: "/about";
-      preLoaderRoute: typeof AboutImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/all-moods": {
-      id: "/all-moods";
-      path: "/all-moods";
-      fullPath: "/all-moods";
-      preLoaderRoute: typeof AllMoodsImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/create-mood": {
-      id: "/create-mood";
-      path: "/create-mood";
-      fullPath: "/create-mood";
-      preLoaderRoute: typeof CreateMoodImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/show-mood": {
-      id: "/show-mood";
-      path: "/show-mood";
-      fullPath: "/show-mood";
-      preLoaderRoute: typeof ShowMoodImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedImport
+      parentRoute: typeof rootRoute
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
+    }
+    '/show-mood': {
+      id: '/show-mood'
+      path: '/show-mood'
+      fullPath: '/show-mood'
+      preLoaderRoute: typeof ShowMoodImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authenticated/all-moods': {
+      id: '/_authenticated/all-moods'
+      path: '/all-moods'
+      fullPath: '/all-moods'
+      preLoaderRoute: typeof AuthenticatedAllMoodsImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/create-mood': {
+      id: '/_authenticated/create-mood'
+      path: '/create-mood'
+      fullPath: '/create-mood'
+      preLoaderRoute: typeof AuthenticatedCreateMoodImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileImport
+      parentRoute: typeof AuthenticatedImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAllMoodsRoute: typeof AuthenticatedAllMoodsRoute
+  AuthenticatedCreateMoodRoute: typeof AuthenticatedCreateMoodRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAllMoodsRoute: AuthenticatedAllMoodsRoute,
+  AuthenticatedCreateMoodRoute: AuthenticatedCreateMoodRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
-  "/all-moods": typeof AllMoodsRoute;
-  "/create-mood": typeof CreateMoodRoute;
-  "/show-mood": typeof ShowMoodRoute;
+  '/': typeof IndexRoute
+  '': typeof AuthenticatedRouteWithChildren
+  '/about': typeof AboutRoute
+  '/show-mood': typeof ShowMoodRoute
+  '/all-moods': typeof AuthenticatedAllMoodsRoute
+  '/create-mood': typeof AuthenticatedCreateMoodRoute
+  '/profile': typeof AuthenticatedProfileRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
-  "/all-moods": typeof AllMoodsRoute;
-  "/create-mood": typeof CreateMoodRoute;
-  "/show-mood": typeof ShowMoodRoute;
+  '/': typeof IndexRoute
+  '': typeof AuthenticatedRouteWithChildren
+  '/about': typeof AboutRoute
+  '/show-mood': typeof ShowMoodRoute
+  '/all-moods': typeof AuthenticatedAllMoodsRoute
+  '/create-mood': typeof AuthenticatedCreateMoodRoute
+  '/profile': typeof AuthenticatedProfileRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
-  "/all-moods": typeof AllMoodsRoute;
-  "/create-mood": typeof CreateMoodRoute;
-  "/show-mood": typeof ShowMoodRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/about': typeof AboutRoute
+  '/show-mood': typeof ShowMoodRoute
+  '/_authenticated/all-moods': typeof AuthenticatedAllMoodsRoute
+  '/_authenticated/create-mood': typeof AuthenticatedCreateMoodRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/about" | "/all-moods" | "/create-mood" | "/show-mood";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/all-moods" | "/create-mood" | "/show-mood";
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | ''
+    | '/about'
+    | '/show-mood'
+    | '/all-moods'
+    | '/create-mood'
+    | '/profile'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | ''
+    | '/about'
+    | '/show-mood'
+    | '/all-moods'
+    | '/create-mood'
+    | '/profile'
   id:
-    | "__root__"
-    | "/"
-    | "/about"
-    | "/all-moods"
-    | "/create-mood"
-    | "/show-mood";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/show-mood'
+    | '/_authenticated/all-moods'
+    | '/_authenticated/create-mood'
+    | '/_authenticated/profile'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  AboutRoute: typeof AboutRoute;
-  AllMoodsRoute: typeof AllMoodsRoute;
-  CreateMoodRoute: typeof CreateMoodRoute;
-  ShowMoodRoute: typeof ShowMoodRoute;
+  IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  ShowMoodRoute: typeof ShowMoodRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
-  AllMoodsRoute: AllMoodsRoute,
-  CreateMoodRoute: CreateMoodRoute,
   ShowMoodRoute: ShowMoodRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -160,26 +223,39 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/_authenticated",
         "/about",
-        "/all-moods",
-        "/create-mood",
         "/show-mood"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx",
+      "children": [
+        "/_authenticated/all-moods",
+        "/_authenticated/create-mood",
+        "/_authenticated/profile"
+      ]
+    },
     "/about": {
       "filePath": "about.tsx"
     },
-    "/all-moods": {
-      "filePath": "all-moods.tsx"
-    },
-    "/create-mood": {
-      "filePath": "create-mood.tsx"
-    },
     "/show-mood": {
       "filePath": "show-mood.tsx"
+    },
+    "/_authenticated/all-moods": {
+      "filePath": "_authenticated/all-moods.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/create-mood": {
+      "filePath": "_authenticated/create-mood.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/profile": {
+      "filePath": "_authenticated/profile.tsx",
+      "parent": "/_authenticated"
     }
   }
 }

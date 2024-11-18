@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { getUser } from "../kinde";
 
 const moodSchema = z.object({
   id: z.number().int().positive().min(1),
@@ -44,10 +45,11 @@ const fakeMood: Mood[] = [
 ];
 
 export const moodRoute = new Hono()
-  .get("/", async (c) => {
+  .get("/", getUser, async (c) => {
+    const user = c.var.user;
     return c.json({ moods: fakeMood });
   })
-  .post("/", zValidator("json", createMoodSchema), async (c) => {
+  .post("/", getUser, zValidator("json", createMoodSchema), async (c) => {
     const data = await c.req.valid("json");
     console.log(data);
     const mood = createMoodSchema.parse(data);
@@ -56,7 +58,7 @@ export const moodRoute = new Hono()
     console.log({ mood });
     return c.json(mood);
   })
-  .get("/:id{[0-9+]}", (c) => {
+  .get("/:id{[0-9+]}", getUser, (c) => {
     const expenseId = Number.parseInt(c.req.param("id"));
     const expense = fakeMood.find((expense) => expense.id === expenseId);
     if (!expense) {
@@ -64,10 +66,10 @@ export const moodRoute = new Hono()
     }
     return c.json({ expense });
   })
-  .get("total-spent", async (c) => {
+  .get("total-spent", getUser, async (c) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
   })
-  .delete("/:id{[0-9+]}", (c) => {
+  .delete("/:id{[0-9+]}", getUser, (c) => {
     const moodId = Number.parseInt(c.req.param("id"));
     const index = fakeMood.findIndex((mood) => mood.id === moodId);
     if (index === -1) {

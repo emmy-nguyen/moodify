@@ -1,19 +1,19 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
 // import type { FieldApi } from "@tanstack/react-form";
-import Happy from "../components/moodIcons/happy";
-import Super from "../components/moodIcons/super";
-import Meh from "../components/moodIcons/meh";
-import Angry from "../components/moodIcons/angry";
-import { Label } from "../components/ui/label";
-import { DatePicker } from "../components/date-picker";
-import { Button } from "../components/ui/button";
-import { Textarea } from "../components/ui/textarea";
-import { Input } from "../components/ui/input";
-import Sad from "../components/moodIcons/sad";
-import { api } from "../lib/api";
+import Happy from "../../components/moodIcons/happy";
+import Super from "../../components/moodIcons/super";
+import Meh from "../../components/moodIcons/meh";
+import Angry from "../../components/moodIcons/angry";
+import { Label } from "../../components/ui/label";
+import { DatePicker } from "../../components/date-picker";
+import { Button } from "../../components/ui/button";
+import { Textarea } from "../../components/ui/textarea";
+import { Input } from "../../components/ui/input";
+import Sad from "../../components/moodIcons/sad";
+import { api } from "../../lib/api";
 
-export const Route = createFileRoute("/create-mood")({
+export const Route = createFileRoute("/_authenticated/create-mood")({
   component: CreateMood,
 });
 type Mood = "happy" | "super" | "meh" | "sad" | "angry";
