@@ -5,47 +5,7 @@ import { getUser } from "../kinde";
 import { db } from "../db";
 import { moods as moodTable } from "../db/schema/moods";
 import { eq, desc, and } from "drizzle-orm";
-
-const moodSchema = z.object({
-  id: z.number().int().positive().min(1),
-  date: z.string().datetime(),
-  time: z.string(),
-  mood: z.enum(["super", "happy", "meh", "sad", "angry"]),
-  category: z.string(),
-  notes: z.string(),
-  image: z.string(),
-});
-type Mood = z.infer<typeof moodSchema>;
-const createMoodSchema = moodSchema.omit({ id: true });
-const fakeMood: Mood[] = [
-  {
-    id: 1,
-    date: "2024-11-15",
-    time: "12:00 PM",
-    mood: "happy",
-    category: "work",
-    notes: "Meeting went well",
-    image: "url1",
-  },
-  {
-    id: 2,
-    date: "2024-11-14",
-    time: "3:00 PM",
-    mood: "sad",
-    category: "personal",
-    notes: "Lost something",
-    image: "url2",
-  },
-  {
-    id: 3,
-    date: "2024-11-13",
-    time: "9:00 AM",
-    mood: "super",
-    category: "health",
-    notes: "Ran 5 miles",
-    image: "url3",
-  },
-];
+import { createMoodSchema } from "../sharedTypes";
 
 export const moodRoute = new Hono()
   .get("/", getUser, async (c) => {

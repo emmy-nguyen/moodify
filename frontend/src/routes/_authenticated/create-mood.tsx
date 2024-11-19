@@ -12,6 +12,9 @@ import { Textarea } from "../../components/ui/textarea";
 import { Input } from "../../components/ui/input";
 import Sad from "../../components/moodIcons/sad";
 import { api } from "../../lib/api";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+import { createMoodSchema } from "../../../../server/sharedTypes";
 
 export const Route = createFileRoute("/_authenticated/create-mood")({
   component: CreateMood,
@@ -27,6 +30,7 @@ const moodIcons: Record<Mood, JSX.Element> = {
 function CreateMood() {
   const navigate = useNavigate();
   const form = useForm({
+    validatorAdapter: zodValidator(),
     defaultValues: {
       date: new Date(),
       time: "",
@@ -62,6 +66,9 @@ function CreateMood() {
           <div className="flex flex-col justify-start gap-y-4">
             <form.Field
               name="date"
+              // validators={{
+              //   onChange: createMoodSchema.shape.date,
+              // }}
               children={(field) => (
                 <>
                   <Label htmlFor={field.name}>Date</Label>
@@ -71,13 +78,18 @@ function CreateMood() {
                   />
                   {field.state.meta.isTouched &&
                   field.state.meta.errors.length ? (
-                    <em>{field.state.meta.errors.join(", ")}</em>
+                    <em className="text-red-700">
+                      {field.state.meta.errors.join(", ")}
+                    </em>
                   ) : null}
                 </>
               )}
             />
             <form.Field
               name="time"
+              validators={{
+                onChange: createMoodSchema.shape.time,
+              }}
               children={(field) => (
                 <>
                   <Label htmlFor={field.name}>Time</Label>
@@ -86,53 +98,56 @@ function CreateMood() {
                     id={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="12:00 PM"
                   />
                   {field.state.meta.isTouched &&
                   field.state.meta.errors.length ? (
-                    <em>{field.state.meta.errors.join(", ")}</em>
+                    <em className="text-red-700">
+                      {field.state.meta.errors.join(", ")}
+                    </em>
                   ) : null}
                 </>
               )}
             />
-            <div className="flex flex-row gap-3">
-              {Object.entries(moodIcons).map(([mood, Icon]) => (
-                <button
-                  key={mood}
-                  type="button"
-                  className={`p-2 rounded hover:bg-blue-200 ${
-                    form.getFieldValue("mood") === mood
-                      ? "bg-blue-200"
-                      : "bg-gray-200"
-                  }`}
-                  onClick={() => form.setFieldValue("mood", mood as Mood)}
-                >
-                  {Icon}
-                </button>
-              ))}
-              {/* {["super", "happy", "meh", "bad", "angry"].map((mood) => (
-                <button
-                  key={mood}
-                  type="button"
-                  className={`p-2 rounded hover:bg-blue-200 ${
-                    form.getFieldValue("mood") === mood
-                      ? "bg-blue-200"
-                      : "bg-gray-200"
-                  }`}
-                  onClick={() => form.setFieldValue("mood", mood)}
-                >
-                  {mood === "super" && <Super />}
-                  {mood === "happy" && <Happy />}
-                  {mood === "meh" && <Meh />}
-                  {mood === "bad" && <Sad />}
-                  {mood === "angry" && <Angry />}
-                </button>
-              ))} */}
-            </div>
+            <form.Field
+              name="mood"
+              validators={{
+                onChange: createMoodSchema.shape.mood,
+              }}
+            >
+              {(field) => (
+                <>
+                  <div className="flex flex-row gap-3">
+                    {Object.entries(moodIcons).map(([mood, Icon]) => (
+                      <button
+                        key={mood}
+                        type="button"
+                        className={`p-2 rounded hover:bg-blue-200 ${
+                          field.state.value === mood
+                            ? "bg-blue-200"
+                            : "bg-gray-200"
+                        }`}
+                        onClick={() => field.handleChange(mood as Mood)}
+                      >
+                        {Icon}
+                      </button>
+                    ))}
+                  </div>
+                  {field.state.meta.isTouched &&
+                  field.state.meta.errors.length ? (
+                    <em className="text-red-700">
+                      {field.state.meta.errors.join(", ")}
+                    </em>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
             <p>Category here</p>
             <div className="space-y-1">
               <form.Field
                 name="notes"
+                validators={{
+                  onChange: createMoodSchema.shape.notes,
+                }}
                 children={(field) => (
                   <>
                     <Label htmlFor={field.name}>Notes</Label>
@@ -146,7 +161,9 @@ function CreateMood() {
                     />
                     {field.state.meta.isTouched &&
                     field.state.meta.errors.length ? (
-                      <em>{field.state.meta.errors.join(", ")}</em>
+                      <em className="text-red-700">
+                        {field.state.meta.errors.join(", ")}
+                      </em>
                     ) : null}
                   </>
                 )}
