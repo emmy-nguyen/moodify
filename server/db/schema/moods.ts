@@ -5,10 +5,12 @@ import {
   serial,
   index,
   varchar,
+  integer,
 } from "drizzle-orm/pg-core";
 import { categories } from "./categories";
 
 const moodEnum = pgEnum("mood", ["super", "happy", "meh", "sad", "angry"]);
+export { moodEnum };
 
 export const moods = pgTable(
   "moods",
@@ -18,7 +20,7 @@ export const moods = pgTable(
     date: text("date").notNull(),
     time: text("time").notNull(),
     mood: moodEnum("mood"),
-    category: varchar("category").references(() => categories.id),
+    categoryId: integer("category_id").references(() => categories.id),
     notes: text("notes"),
   },
   (table) => {
