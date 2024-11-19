@@ -15,12 +15,12 @@ import {
 
 interface DatePickerProps {
   selected: Date;
-  onChange: (date: Date | undefined) => void;
+  onSelect: (date: Date | undefined) => void;
 }
-export function DatePicker({ selected, onChange }: DatePickerProps) {
+export function DatePicker({ selected, onSelect }: DatePickerProps) {
   //   const [date, setDate] = React.useState<Date>();
   const handleDateChange = (date: Date | undefined) => {
-    onChange(date);
+    onSelect(date);
     // setDate(date);
   };
 
