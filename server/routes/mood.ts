@@ -3,7 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { getUser } from "../kinde";
 import { db } from "../db";
-import { moods as moodTable, insertMoodSchema } from "../db/schema/moods";
+import { moods as moodTable } from "../db/schema/moods";
 import { eq, desc, and } from "drizzle-orm";
 import { createMoodSchema } from "../sharedTypes";
 
@@ -19,12 +19,14 @@ export const moodRoute = new Hono()
     return c.json({ moods: moods });
   })
   .post("/", getUser, zValidator("json", createMoodSchema), async (c) => {
-    const user = c.var.user;
-    const mood = await c.req.valid("json");
-
-    // check if inputs are valid for db or not
-    const validMood = insertMoodSchema.parse({ userId: user.id, ...mood });
-    const result = await db.insert(moodTable).values(validMood).returning();
+    const data = await c.req.valid("json");
+    const result = await db
+      .insert(moodTable)
+      .values({
+        userId: c.var.user.id,
+        ...data,
+      })
+      .returning();
     c.status(201);
     return c.json(result);
   })

@@ -31,7 +31,7 @@ function CreateMood() {
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      date: new Date().toISOString(),
+      date: new Date(),
       time: "",
       mood: "" as Mood,
       category: "",
@@ -39,7 +39,9 @@ function CreateMood() {
       image: "",
     },
     onSubmit: async ({ value }) => {
-      const res = await api.mood.$post({ json: value });
+      const formattedValue = { ...value, date: value.date.toISOString() };
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const res = await api.mood.$post({ json: formattedValue });
       console.log(res);
       if (!res.ok) {
         throw new Error("Server error");
@@ -70,10 +72,8 @@ function CreateMood() {
                 <>
                   <Label htmlFor={field.name}>Date</Label>
                   <DatePicker
-                    selected={new Date(field.state.value)}
-                    onSelect={(date) =>
-                      field.handleChange((date ?? new Date()).toISOString())
-                    }
+                    selected={field.state.value}
+                    onChange={(date) => field.handleChange(date || new Date())}
                   />
                   {field.state.meta.isTouched &&
                   field.state.meta.errors.length ? (
