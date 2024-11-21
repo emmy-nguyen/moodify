@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "categories" (
 CREATE TABLE IF NOT EXISTS "moods" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" text NOT NULL,
-	"date" text NOT NULL,
+	"date" date NOT NULL,
 	"time" text NOT NULL,
 	"mood" "mood",
 	"category_id" integer,

@@ -11,7 +11,12 @@ import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 import { Input } from "../../components/ui/input";
 import Sad from "../../components/moodIcons/sad";
-import { api } from "../../lib/api";
+import {
+  createMood,
+  getAllMoodsQueryOptions,
+  loadingCreateMoodOptions,
+} from "../../lib/api";
+import { useQueryClient } from "@tanstack/react-query";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { createMoodSchema } from "../../../../server/sharedTypes";
 
@@ -27,11 +32,12 @@ const moodIcons: Record<Mood, JSX.Element> = {
   angry: <Angry />,
 };
 function CreateMood() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
-      date: new Date(),
+      date: new Date().toISOString(),
       time: "",
       mood: "" as Mood,
       category: "",
@@ -39,15 +45,27 @@ function CreateMood() {
       image: "",
     },
     onSubmit: async ({ value }) => {
-      const formattedValue = { ...value, date: value.date.toISOString() };
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      const res = await api.mood.$post({ json: formattedValue });
-      console.log(res);
-      if (!res.ok) {
-        throw new Error("Server error");
-      }
+      const existingMood = await queryClient.ensureQueryData(
+        getAllMoodsQueryOptions
+      );
       navigate({ to: "/all-moods" });
-      console.log(value);
+      // loading state
+      queryClient.setQueryData(loadingCreateMoodOptions.queryKey, {
+        mood: value,
+      });
+      try {
+        // caching resutls
+        const newMood = await createMood({ value });
+        queryClient.setQueryData(getAllMoodsQueryOptions.queryKey, {
+          ...existingMood,
+          moods: [newMood, ...existingMood.moods],
+        });
+        // success state
+      } catch (error) {
+        // error sate
+      } finally {
+        queryClient.setQueryData(loadingCreateMoodOptions.queryKey, {});
+      }
     },
   });
   return (
@@ -65,15 +83,17 @@ function CreateMood() {
           <div className="flex flex-col justify-start gap-y-4">
             <form.Field
               name="date"
-              // validators={{
-              //   onChange: createMoodSchema.shape.date,
-              // }}
+              validators={{
+                onChange: createMoodSchema.shape.date,
+              }}
               children={(field) => (
                 <>
                   <Label htmlFor={field.name}>Date</Label>
                   <DatePicker
-                    selected={field.state.value}
-                    onChange={(date) => field.handleChange(date || new Date())}
+                    selected={new Date(field.state.value)}
+                    onChange={(date) =>
+                      field.handleChange((date ?? new Date()).toISOString())
+                    }
                   />
                   {field.state.meta.isTouched &&
                   field.state.meta.errors.length ? (
