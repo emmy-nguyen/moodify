@@ -134,7 +134,7 @@ export default function Happy() {
           </clipPath>
         </defs>
       </svg>
-      <span className="text-sm">Happy</span>
+      {/* <span className="text-sm">Happy</span> */}
     </>
   );
 }

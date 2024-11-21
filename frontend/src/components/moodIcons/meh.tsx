@@ -80,7 +80,7 @@ export default function Meh() {
           </clipPath>
         </defs>
       </svg>
-      <span className="text-sm">Meh</span>
+      {/* <span className="text-sm">Meh</span> */}
     </>
   );
 }

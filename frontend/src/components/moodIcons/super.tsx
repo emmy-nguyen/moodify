@@ -150,7 +150,7 @@ export default function Super() {
           </clipPath>
         </defs>
       </svg>
-      <span className="text-sm">Super</span>
+      {/* <span className="text-sm">Super</span> */}
     </>
   );
 }
