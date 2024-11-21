@@ -7,6 +7,7 @@ import Meh from "../../components/moodIcons/meh";
 import Angry from "../../components/moodIcons/angry";
 import { Label } from "../../components/ui/label";
 import { DatePicker } from "../../components/date-picker";
+import { toast } from "sonner";
 import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 import { Input } from "../../components/ui/input";
@@ -61,8 +62,13 @@ function CreateMood() {
           moods: [newMood, ...existingMood.moods],
         });
         // success state
+        toast("Mood Created", {
+          description: `Successfull created mood: ${newMood.id}`,
+        });
       } catch (error) {
-        // error sate
+        toast("Error", {
+          description: "Failed to create new mood",
+        });
       } finally {
         queryClient.setQueryData(loadingCreateMoodOptions.queryKey, {});
       }

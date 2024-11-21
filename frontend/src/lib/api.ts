@@ -36,6 +36,7 @@ export const getAllMoodsQueryOptions = queryOptions({
 });
 
 export async function createMood({ value }: { value: CreateMood }) {
+  await new Promise((r) => setTimeout(r, 5000));
   const res = await api.mood.$post({ json: value });
   console.log(res);
   if (!res.ok) {
