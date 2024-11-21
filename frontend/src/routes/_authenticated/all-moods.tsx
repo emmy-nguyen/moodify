@@ -10,6 +10,7 @@ import Meh from "../../components/moodIcons/meh";
 import Sad from "../../components/moodIcons/sad";
 import Angry from "../../components/moodIcons/angry";
 import { Skeleton } from "../../components/ui/skeleton";
+import DeleteMoodButton from "../../components/delete-mood-button";
 interface Mood {
   id: number;
   userId: string;
@@ -32,6 +33,7 @@ function AllMoods() {
   const { data: loadingCreateMood } = useQuery(loadingCreateMoodOptions);
 
   let sortedMoodsByDate = data?.moods || [];
+  console.log("data", data);
 
   if (!sortedMoodsByDate || sortedMoodsByDate === undefined) {
     sortedMoodsByDate = [];
@@ -44,7 +46,7 @@ function AllMoods() {
   });
 
   const groupedMoodsByDate = sortedMoodsByDate.reduce((acc, mood) => {
-    const date = new Date(mood.date).toDateString();
+    const date = new Date(mood.date).toISOString().split("T")[0];
     if (!acc[date]) {
       acc[date] = [];
     }
@@ -73,8 +75,14 @@ function AllMoods() {
     <>
       {/* skeleton here */}
       {loadingCreateMood?.mood && (
-        <div>
-          <Skeleton />
+        <div className="mt-4">
+          <div className="w-full flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 " />
+              <Skeleton className="h-4 " />
+            </div>
+          </div>
         </div>
       )}
       {isPending ? (
@@ -106,9 +114,7 @@ function AllMoods() {
                       <div></div>
                       <div className="flex flex-col">
                         <div className="cursor-pointer ml-auto mr-4">Edit</div>
-                        <div className="cursor-pointer ml-auto mr-4">
-                          Delete
-                        </div>
+                        <DeleteMoodButton id={mood.id} />
                       </div>
                     </div>
                   ))}

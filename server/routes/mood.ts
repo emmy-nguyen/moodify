@@ -33,7 +33,7 @@ export const moodRoute = new Hono()
     c.status(201);
     return c.json(result);
   })
-  .get("/:id{[0-9+]}", getUser, async (c) => {
+  .get("/:id{[0-9]+}", getUser, async (c) => {
     const moodId = Number.parseInt(c.req.param("id"));
     const user = c.var.user;
     const mood = await db
@@ -50,7 +50,7 @@ export const moodRoute = new Hono()
   .get("total-spent", getUser, async (c) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
   })
-  .delete("/:id{[0-9+]}", getUser, async (c) => {
+  .delete("/:id{[0-9]+}", getUser, async (c) => {
     const moodId = Number.parseInt(c.req.param("id"));
     const user = c.var.user;
     const mood = await db

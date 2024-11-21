@@ -56,3 +56,13 @@ export const loadingCreateMoodOptions = queryOptions<{
   },
   staleTime: Infinity,
 });
+
+export async function deleteMood({ id }: { id: number }) {
+  await new Promise((r) => setTimeout(r, 3000));
+  const res = await api.mood[":id{[0-9]+}"].$delete({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) {
+    throw new Error("Server error");
+  }
+}
