@@ -4,13 +4,12 @@ import {
   pgTable,
   serial,
   index,
-  date,
   integer,
+  date,
 } from "drizzle-orm/pg-core";
 import { categories } from "./categories";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
-import { timestamp } from "drizzle-orm/mysql-core";
 
 const moodEnum = pgEnum("mood", ["super", "happy", "meh", "sad", "angry"]);
 export { moodEnum };

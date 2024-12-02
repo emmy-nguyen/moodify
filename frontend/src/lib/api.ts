@@ -38,7 +38,6 @@ export const getAllMoodsQueryOptions = queryOptions({
 export async function createMood({ value }: { value: CreateMood }) {
   await new Promise((r) => setTimeout(r, 5000));
   const res = await api.mood.$post({ json: value });
-  console.log(res);
   if (!res.ok) {
     throw new Error("Server error");
   }
@@ -65,4 +64,23 @@ export async function deleteMood({ id }: { id: number }) {
   if (!res.ok) {
     throw new Error("Server error");
   }
+}
+
+export async function updateMood({
+  id,
+  values,
+}: {
+  id: number;
+  values: CreateMood;
+}) {
+  await new Promise((r) => setTimeout(r, 3000));
+  const res = await api.mood[":id{[0-9]+}"].$put({
+    param: { id: id.toString() },
+    json: values,
+  });
+  if (!res.ok) {
+    throw new Error("Server error");
+  }
+  const updatedMood = await res.json();
+  return updatedMood;
 }

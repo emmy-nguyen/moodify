@@ -22,9 +22,11 @@ export const moodRoute = new Hono()
     const user = c.var.user;
     const data = await c.req.valid("json");
     const validateMood = insertMoodSchema.parse({
-      userId: c.var.user.id,
+      userId: user.id,
       ...data,
     });
+
+    console.log("validateMood", validateMood);
     const result = await db
       .insert(moodTable)
       .values(validateMood)
@@ -47,9 +49,6 @@ export const moodRoute = new Hono()
     }
     return c.json({ moods: mood });
   })
-  .get("total-spent", getUser, async (c) => {
-    // await new Promise((resolve) => setTimeout(resolve, 2000));
-  })
   .delete("/:id{[0-9]+}", getUser, async (c) => {
     const moodId = Number.parseInt(c.req.param("id"));
     const user = c.var.user;
@@ -62,5 +61,29 @@ export const moodRoute = new Hono()
       return c.notFound();
     }
     return c.json({ moods: mood });
-  });
-// .put
+  })
+  .put(
+    "/:id{[0-9]+}",
+    getUser,
+    zValidator("json", createMoodSchema),
+    async (c) => {
+      const moodId = Number.parseInt(c.req.param("id"));
+      const user = c.var.user;
+      const editedMood = await c.req.valid("json");
+      const validateMood = insertMoodSchema.parse({
+        userId: user.id,
+        ...editedMood,
+      });
+      const mood = await db
+        .update(moodTable)
+        .set(validateMood)
+        .where(and(eq(moodTable.userId, user.id), eq(moodTable.id, moodId)))
+        .returning()
+        .then((res) => res[0]);
+      if (!mood) {
+        return c.notFound();
+      }
+      c.status(201);
+      return c.json({ moods: mood });
+    }
+  );

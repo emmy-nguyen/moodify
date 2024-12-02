@@ -1,6 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
-// import type { FieldApi } from "@tanstack/react-form";
 import Happy from "../../components/moodIcons/happy";
 import Super from "../../components/moodIcons/super";
 import Meh from "../../components/moodIcons/meh";

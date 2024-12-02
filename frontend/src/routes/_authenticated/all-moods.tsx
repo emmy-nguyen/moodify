@@ -11,6 +11,10 @@ import Sad from "../../components/moodIcons/sad";
 import Angry from "../../components/moodIcons/angry";
 import { Skeleton } from "../../components/ui/skeleton";
 import DeleteMoodButton from "../../components/delete-mood-button";
+import { Pencil } from "lucide-react";
+import { Button } from "../../components/ui/button";
+import { useState } from "react";
+import EditMoodModal from "../../components/edit-modal";
 interface Mood {
   id: number;
   userId: string;
@@ -31,6 +35,19 @@ export const Route = createFileRoute("/_authenticated/all-moods")({
 function AllMoods() {
   const { isPending, error, data } = useQuery(getAllMoodsQueryOptions);
   const { data: loadingCreateMood } = useQuery(loadingCreateMoodOptions);
+  const [isModalOpen, setModalIsOpen] = useState(false);
+  const [editMood, setEditMood] = useState<Mood | null>(null);
+
+  const openModal = (mood: Mood) => {
+    setModalIsOpen(true);
+    setEditMood(mood);
+  };
+  console.log("editMood", editMood);
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setEditMood(null);
+  };
 
   let sortedMoodsByDate = data?.moods || [];
   console.log("data", data);
@@ -108,12 +125,20 @@ function AllMoods() {
                           </p>
                           <p>{mood.time}</p>
                         </div>
+                        <p>Notes: {mood.notes}</p>
                         <div>category</div>
                       </div>
                       <div></div>
                       <div></div>
-                      <div className="flex flex-col">
-                        <div className="cursor-pointer ml-auto mr-4">Edit</div>
+                      <div className="flex flex-col gap-y-2">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="cursor-pointer ml-auto mr-4"
+                          onClick={() => openModal(mood)}
+                        >
+                          <Pencil className="h-4 w-4 /" />
+                        </Button>
                         <DeleteMoodButton id={mood.id} />
                       </div>
                     </div>
@@ -124,6 +149,8 @@ function AllMoods() {
           ))}
         </div>
       )}
+
+      {isModalOpen && <EditMoodModal data={editMood} onClose={closeModal} />}
     </>
   );
 }
