@@ -16,14 +16,7 @@ import { Calendar } from "../components/ui/calendar";
 export const Route = createFileRoute("/")({
   component: Index,
 });
-// async function getTotalSpent() {
-//   const result = await api.mood["total-spent"].$get();
-//   if (res.ok) {
-//     throw new Error("server error");
-//   }
-//   const data = await res.json();
-//   return;
-// }
+
 function Index() {
   // const { isPending, error, data } = useQuery({
   //   queryKey: ["get-total-spent"],
