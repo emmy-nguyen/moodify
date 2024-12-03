@@ -1,34 +1,9 @@
 {
-  "id": "e9e51311-4bf5-47b7-b00e-d4d3a53d0aef",
+  "id": "99186803-26f6-4677-b1ee-0a6d17c1df73",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.categories": {
-      "name": "categories",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "category": {
-          "name": "category",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.moods": {
       "name": "moods",
       "schema": "",
@@ -62,13 +37,14 @@
           "type": "mood",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "category_id": {
-          "name": "category_id",
-          "type": "integer",
+        "category": {
+          "name": "category",
+          "type": "category",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "notes": {
           "name": "notes",
@@ -94,21 +70,7 @@
           "with": {}
         }
       },
-      "foreignKeys": {
-        "moods_category_id_categories_id_fk": {
-          "name": "moods_category_id_categories_id_fk",
-          "tableFrom": "moods",
-          "tableTo": "categories",
-          "columnsFrom": [
-            "category_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
@@ -117,6 +79,17 @@
     }
   },
   "enums": {
+    "public.category": {
+      "name": "category",
+      "schema": "public",
+      "values": [
+        "exam",
+        "project",
+        "study",
+        "class",
+        "assignment"
+      ]
+    },
     "public.mood": {
       "name": "mood",
       "schema": "public",

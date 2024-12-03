@@ -19,6 +19,11 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { createMoodSchema } from "../../../../server/sharedTypes";
+import Exam from "../../components/categoryIcons/exam";
+import Study from "../../components/categoryIcons/study";
+import Class from "../../components/categoryIcons/class";
+import Assignment from "../../components/categoryIcons/assignment";
+import Project from "../../components/categoryIcons/group-project";
 
 export const Route = createFileRoute("/_authenticated/create-mood")({
   component: CreateMood,
@@ -31,6 +36,15 @@ const moodIcons: Record<Mood, JSX.Element> = {
   sad: <Sad />,
   angry: <Angry />,
 };
+
+type Category = "exam" | "project" | "study" | "class" | "assignment";
+const categoryNames: Record<Category, JSX.Element> = {
+  exam: <Exam />,
+  project: <Project />,
+  study: <Study />,
+  class: <Class />,
+  assignment: <Assignment />,
+};
 function CreateMood() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -40,7 +54,7 @@ function CreateMood() {
       date: new Date().toISOString(),
       time: "",
       mood: "" as Mood,
-      category: "",
+      category: "" as Category,
       notes: "",
       image: "",
     },
@@ -132,6 +146,8 @@ function CreateMood() {
                 </>
               )}
             />
+            <p>Pick your mood</p>
+
             <form.Field
               name="mood"
               validators={{
@@ -165,7 +181,42 @@ function CreateMood() {
                 </>
               )}
             </form.Field>
-            <p>Category here</p>
+            <p>Category</p>
+
+            <form.Field
+              name="category"
+              validators={{
+                onChange: createMoodSchema.shape.category,
+              }}
+            >
+              {(field) => (
+                <>
+                  <div className="flex flex-row gap-3">
+                    {Object.entries(categoryNames).map(([category, Icon]) => (
+                      <button
+                        key={category}
+                        type="button"
+                        className={`p-2 rounded hover:bg-blue-200 ${
+                          field.state.value === category
+                            ? "bg-blue-200"
+                            : "bg-gray-200"
+                        }`}
+                        onClick={() => field.handleChange(category as Category)}
+                      >
+                        {Icon}
+                      </button>
+                    ))}
+                  </div>
+                  {field.state.meta.isTouched &&
+                  field.state.meta.errors.length ? (
+                    <em className="text-red-700">
+                      {field.state.meta.errors.join(", ")}
+                    </em>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
+
             <div className="space-y-1">
               <form.Field
                 name="notes"
@@ -193,7 +244,7 @@ function CreateMood() {
                 )}
               />
             </div>
-            <input type="file" accept="image/*" />
+            {/* <input type="file" accept="image/*" /> */}
             <form.Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
               children={([canSubmit, isSubmitting]) => (

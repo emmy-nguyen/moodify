@@ -1,1 +1,0 @@
-ALTER TABLE "moods" ALTER COLUMN "date" SET DATA TYPE timestamp;

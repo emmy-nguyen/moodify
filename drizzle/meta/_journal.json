@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1732151644752,
-      "tag": "0000_quiet_layla_miller",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1732255093038,
-      "tag": "0001_military_centennial",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1732255639415,
-      "tag": "0002_third_the_phantom",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1733194500827,
-      "tag": "0003_rainy_ender_wiggin",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1733195261527,
-      "tag": "0004_worthless_firebrand",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1733196641848,
-      "tag": "0005_furry_jack_power",
+      "when": 1733208482961,
+      "tag": "0000_lazy_polaris",
       "breakpoints": true
     }
   ]

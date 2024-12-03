@@ -21,7 +21,7 @@ interface Mood {
   time: string;
   date: string;
   mood: string | null;
-  categoryId?: number | null;
+  category: string | null;
   notes?: string | null;
 }
 
@@ -126,7 +126,13 @@ function AllMoods() {
                           <p>{mood.time}</p>
                         </div>
                         <p>Notes: {mood.notes}</p>
-                        <div>category</div>
+                        <div
+                          className={`rounded-lg ${mood.category === "project" ? "bg-yellow-200" : mood.category === "exam" ? "bg-blue-200" : mood.category === "study" ? "bg-green-200" : mood.category === "class" ? "bg-red-200" : mood.category === "assignment" ? "bg-purple-200" : "bg-gray-200"} w-[100px]`}
+                        >
+                          <div className="flex items-center justify-center">
+                            {mood.category}
+                          </div>
+                        </div>
                       </div>
                       <div></div>
                       <div></div>
