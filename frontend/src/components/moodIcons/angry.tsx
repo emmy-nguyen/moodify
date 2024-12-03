@@ -98,7 +98,6 @@ export default function Angry() {
           </clipPath>
         </defs>
       </svg>
-      <span className="text-sm">Angry</span>
     </>
   );
 }

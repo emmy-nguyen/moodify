@@ -86,7 +86,6 @@ export default function Sad() {
           </clipPath>
         </defs>
       </svg>
-      <span className="text-sm">Sad</span>
     </>
   );
 }

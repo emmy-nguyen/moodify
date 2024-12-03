@@ -169,6 +169,19 @@ function CreateMood() {
                         onClick={() => field.handleChange(mood as Mood)}
                       >
                         {Icon}
+                        <span className="text-sm">
+                          {mood === "super"
+                            ? "Super"
+                            : mood === "happy"
+                              ? "Happy"
+                              : mood === "meh"
+                                ? "Meh"
+                                : mood === "sad"
+                                  ? "Sad"
+                                  : mood === "angry"
+                                    ? "Angry"
+                                    : "None"}
+                        </span>
                       </button>
                     ))}
                   </div>
