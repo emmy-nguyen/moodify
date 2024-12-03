@@ -6,6 +6,7 @@ import {
   index,
   integer,
   date,
+  timestamp,
 } from "drizzle-orm/pg-core";
 import { categories } from "./categories";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
@@ -24,7 +25,6 @@ export const moods = pgTable(
     mood: moodEnum("mood"),
     categoryId: integer("category_id").references(() => categories.id),
     notes: text("notes"),
-    // createdAt: timestamp("created_at").defaultNow(),
   },
   (table) => {
     return {
@@ -38,6 +38,7 @@ export const insertMoodSchema = createInsertSchema(moods, {
   mood: z.enum(["super", "happy", "meh", "sad", "angry"], {
     message: "You need to pick your mood",
   }),
+  categoryId: z.number().int().positive(),
   notes: z
     .string()
     .min(3, { message: "Your note must be at least 3 characters long" }),
