@@ -1,4 +1,4 @@
-# a2
+# a2 - mood tracker
 
 To install dependencies:
 

@@ -82,7 +82,7 @@ export default function EditMoodModal({
       <div className="relative w-full max-w-sm m-auto p-4 bg-white rounded-xl shadow-lg">
         <div className="flex flex-col items-center">
           <div className="flex flex-row">
-            <h2 className="text-2xl mb-4">Edit Mood</h2>
+            <h2 className="text-2xl mb-4 font-medium">Edit Your Mood</h2>
             <Button
               className="absolute top-4 right-4 bg-white text-gray-300 hover:text-neutral hover:bg-neutral-50 p-2"
               onClick={onClose}
@@ -159,9 +159,9 @@ export default function EditMoodModal({
                         <button
                           key={mood}
                           type="button"
-                          className={`p-2 rounded hover:bg-blue-200 ${
+                          className={`p-2 rounded hover:bg-yellow-200 ${
                             field.state.value === mood
-                              ? "bg-blue-200"
+                              ? "bg-yellow-200"
                               : "bg-gray-200"
                           }`}
                           onClick={() => {
@@ -208,9 +208,9 @@ export default function EditMoodModal({
                       {Object.entries(categoryNames).map(([category, Icon]) => (
                         <div
                           key={category}
-                          className={`p-2 rounded-lg text-sm hover:bg-blue-200 ${
+                          className={`p-2 rounded-lg text-sm hover:bg-yellow-200 ${
                             field.state.value === category
-                              ? "bg-blue-200"
+                              ? "bg-yellow-200"
                               : "bg-gray-200"
                           }`}
                           onClick={() =>

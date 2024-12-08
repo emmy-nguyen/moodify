@@ -94,7 +94,7 @@ function CreateMood() {
   return (
     <div className="max-w-md m-auto p-4">
       <div className="flex flex-col items-center">
-        <h2 className="text-3xl mb-4">How are you?</h2>
+        <h2 className="text-3xl font-medium mb-4">How are you today?</h2>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -165,9 +165,9 @@ function CreateMood() {
                       <button
                         key={mood}
                         type="button"
-                        className={`p-2 rounded hover:bg-blue-200 ${
+                        className={`p-2 rounded hover:bg-yellow-200 ${
                           field.state.value === mood
-                            ? "bg-blue-200"
+                            ? "bg-yellow-200"
                             : "bg-gray-200"
                         }`}
                         onClick={() => field.handleChange(mood as Mood)}
@@ -212,9 +212,9 @@ function CreateMood() {
                     {Object.entries(categoryNames).map(([category, Icon]) => (
                       <div
                         key={category}
-                        className={`p-2 rounded-lg text-sm hover:bg-blue-200 ${
+                        className={`p-2 rounded-lg text-sm hover:bg-yellow-200 ${
                           field.state.value === category
-                            ? "bg-blue-200"
+                            ? "bg-yellow-200"
                             : "bg-gray-200"
                         }`}
                         onClick={() => field.handleChange(category as Category)}

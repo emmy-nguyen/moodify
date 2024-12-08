@@ -50,7 +50,7 @@ function Index() {
         <section className="grid gap-4">
           <Card className="col-span-1 md:col-span-2">
             <CardHeader>
-              <CardTitle>Mood Overview</CardTitle>
+              <CardTitle>Your Last Mood</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
               {userData?.user && recentMood ? (
@@ -91,7 +91,7 @@ function Index() {
 
                     <div className="mt-2 text-sm text-gray-600">
                       <span className="font-medium">Date & Time:</span>{" "}
-                      {recentMood.time} -
+                      {recentMood.time} -{" "}
                       {new Date(recentMood.date).toDateString()}
                     </div>
                     <div className="mt-1 text-sm text-gray-600">
