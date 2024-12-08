@@ -108,10 +108,15 @@ export default function EditMoodModal({
                   <>
                     <Label htmlFor={field.name}>Date</Label>
                     <DatePicker
-                      selected={new Date(field.state.value)}
-                      onChange={(date) =>
-                        field.handleChange((date ?? new Date()).toISOString())
+                      selected={
+                        new Date(`${field.state.value?.split("T")[0]}T00:00:00`)
                       }
+                      onChange={(date) => {
+                        const fixedDate = new Date(
+                          `${date?.toISOString().split("T")[0]}T00:00:00`
+                        );
+                        field.handleChange(fixedDate.toISOString());
+                      }}
                     />
                     {field.state.meta.isTouched &&
                     field.state.meta.errors.length ? (

@@ -42,7 +42,6 @@ function AllMoods() {
     setModalIsOpen(true);
     setEditMood(mood);
   };
-  console.log("editMood", editMood);
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -50,11 +49,9 @@ function AllMoods() {
   };
 
   let sortedMoodsByDate = data?.moods || [];
-  console.log("data", data);
 
   if (!sortedMoodsByDate || sortedMoodsByDate === undefined) {
     sortedMoodsByDate = [];
-    console.log("No moods found");
   }
   sortedMoodsByDate.sort((a, b) => {
     const dateB = new Date(b.date);
@@ -125,7 +122,10 @@ function AllMoods() {
                           </p>
                           <p>{mood.time}</p>
                         </div>
-                        <p>Notes: {mood.notes}</p>
+                        <div>
+                          Notes:
+                          <div>{mood.notes}</div>
+                        </div>
                         <div
                           className={`rounded-lg ${mood.category === "project" ? "bg-yellow-200" : mood.category === "exam" ? "bg-blue-200" : mood.category === "study" ? "bg-green-200" : mood.category === "class" ? "bg-red-200" : mood.category === "assignment" ? "bg-purple-200" : "bg-gray-200"} w-[100px]`}
                         >

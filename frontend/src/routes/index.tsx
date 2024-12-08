@@ -92,7 +92,9 @@ function Index() {
                     <div className="mt-2 text-sm text-gray-600">
                       <span className="font-medium">Date & Time:</span>{" "}
                       {recentMood.time} -{" "}
-                      {new Date(recentMood.date).toDateString()}
+                      {new Date(
+                        `${recentMood.date.split("T")[0]}T00:00:00`
+                      ).toDateString()}
                     </div>
                     <div className="mt-1 text-sm text-gray-600">
                       <span className="font-medium">Note:</span>{" "}
