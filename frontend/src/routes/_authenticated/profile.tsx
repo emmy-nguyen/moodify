@@ -8,34 +8,29 @@ export const Route = createFileRoute("/_authenticated/profile")({
 
 function Profile() {
   const { isPending, error, data } = useQuery(userQueryOptions);
-  const loggedIn = Boolean(data?.user?.id);
 
   if (isPending) return "Loading...";
   if (error) return "Not Logged in";
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
       {/* Header Section */}
-      <header className="flex flex-col items-center mb-6">
+      <div className="flex flex-col items-center mb-6">
         <img
-          src="https://via.placeholder.com/80"
+          src="/public/smile.jpg"
           alt="Avatar"
           className="w-20 h-20 rounded-full mb-4"
         />
-        <h2 className="text-xl font-bold">
-          {loggedIn ? `Welcome, ${data.user.given_name}` : "Welcome, Guest"}
-        </h2>
-      </header>
+        <h2 className="text-xl font-bold">Welcome, {data.user.given_name}</h2>
+      </div>
 
-      <footer className="text-center">
+      <div className="text-center">
         <a
-          className={`w-full px-4 py-2 rounded-lg text-white ${
-            loggedIn ? "bg-black" : "bg-green-500"
-          }`}
+          className="bg-black hover:bg-yellow-500 text-white text-sm font-semi py-2 px-4 rounded-lg transition duration-300"
           href="/api/logout"
         >
-          {loggedIn ? "Logout" : "Login"}
+          Log out
         </a>
-      </footer>
+      </div>
     </div>
   );
 }
