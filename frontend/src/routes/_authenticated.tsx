@@ -4,9 +4,16 @@ import { userQueryOptions } from "../lib/api";
 
 const Login = () => {
   return (
-    <div>
-      You have to log in
-      <a href="/api/login">Login!</a>
+    <div className="flex items-center justify-center">
+      <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full text-center mt-4 items-center justify-center">
+        <p className="text-gray-600 mb-4">You have to log in!</p>
+        <a
+          href="/api/login"
+          className="bg-black hover:bg-yellow-500 text-white text-sm font-semi py-2 px-4 rounded-lg transition duration-300"
+        >
+          Login
+        </a>
+      </div>
     </div>
   );
 };

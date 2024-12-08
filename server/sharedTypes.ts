@@ -8,3 +8,10 @@ export const createMoodSchema = insertMoodSchema.omit({
 });
 
 export type CreateMood = z.infer<typeof createMoodSchema>;
+
+export type Mood = "happy" | "super" | "meh" | "sad" | "angry";
+
+export type Category = "exam" | "project" | "study" | "class" | "assignment";
+
+
+

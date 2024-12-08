@@ -1,3 +1,3 @@
 export default function Project() {
-  return <a>Group Project</a>;
+  return <a>Project</a>;
 }

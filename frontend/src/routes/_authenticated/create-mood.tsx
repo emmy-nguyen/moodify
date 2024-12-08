@@ -18,17 +18,21 @@ import {
 } from "../../lib/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { createMoodSchema } from "../../../../server/sharedTypes";
+import {
+  Category,
+  createMoodSchema,
+  Mood,
+} from "../../../../server/sharedTypes";
 import Exam from "../../components/categoryIcons/exam";
 import Study from "../../components/categoryIcons/study";
 import Class from "../../components/categoryIcons/class";
 import Assignment from "../../components/categoryIcons/assignment";
-import Project from "../../components/categoryIcons/group-project";
+import Project from "../../components/categoryIcons/project";
 
 export const Route = createFileRoute("/_authenticated/create-mood")({
   component: CreateMood,
 });
-type Mood = "happy" | "super" | "meh" | "sad" | "angry";
+// type Mood = "happy" | "super" | "meh" | "sad" | "angry";
 const moodIcons: Record<Mood, JSX.Element> = {
   super: <Super />,
   happy: <Happy />,
@@ -37,7 +41,7 @@ const moodIcons: Record<Mood, JSX.Element> = {
   angry: <Angry />,
 };
 
-type Category = "exam" | "project" | "study" | "class" | "assignment";
+// type Category = "exam" | "project" | "study" | "class" | "assignment";
 const categoryNames: Record<Category, JSX.Element> = {
   exam: <Exam />,
   project: <Project />,
@@ -204,12 +208,11 @@ function CreateMood() {
             >
               {(field) => (
                 <>
-                  <div className="flex flex-row gap-3">
+                  <div className="flex flex-row gap-3 items-center justify-center">
                     {Object.entries(categoryNames).map(([category, Icon]) => (
-                      <button
+                      <div
                         key={category}
-                        type="button"
-                        className={`p-2 rounded hover:bg-blue-200 ${
+                        className={`p-2 rounded-lg text-sm hover:bg-blue-200 ${
                           field.state.value === category
                             ? "bg-blue-200"
                             : "bg-gray-200"
@@ -217,7 +220,7 @@ function CreateMood() {
                         onClick={() => field.handleChange(category as Category)}
                       >
                         {Icon}
-                      </button>
+                      </div>
                     ))}
                   </div>
                   {field.state.meta.isTouched &&

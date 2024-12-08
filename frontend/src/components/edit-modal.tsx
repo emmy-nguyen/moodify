@@ -17,12 +17,14 @@ import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { X } from "lucide-react";
-import { createMoodSchema } from "../../../server/sharedTypes";
+import { Category, createMoodSchema, Mood } from "../../../server/sharedTypes";
+import Exam from "./categoryIcons/exam";
+import Project from "./categoryIcons/project";
+import Study from "./categoryIcons/study";
+import Class from "./categoryIcons/class";
+import Assignment from "./categoryIcons/assignment";
 
-// export const Route = createFileRoute("/_authenticated/create-mood")({
-//   component: CreateMood,
-// });
-type Mood = "happy" | "super" | "meh" | "sad" | "angry";
+// type Mood = "happy" | "super" | "meh" | "sad" | "angry";
 const moodIcons: Record<Mood, JSX.Element> = {
   super: <Super />,
   happy: <Happy />,
@@ -30,6 +32,15 @@ const moodIcons: Record<Mood, JSX.Element> = {
   sad: <Sad />,
   angry: <Angry />,
 };
+
+const categoryNames: Record<Category, JSX.Element> = {
+  exam: <Exam />,
+  project: <Project />,
+  study: <Study />,
+  class: <Class />,
+  assignment: <Assignment />,
+};
+
 export default function EditMoodModal({
   data,
   onClose,
@@ -56,7 +67,7 @@ export default function EditMoodModal({
       date: new Date(data.date).toISOString(),
       time: data.time as string,
       mood: data.mood as Mood,
-      category: data.category as null,
+      category: data.category as Category,
       notes: data.notes as string,
       image: data.image as string | null,
     },
@@ -158,6 +169,19 @@ export default function EditMoodModal({
                           }}
                         >
                           {Icon}
+                          <span className="text-sm">
+                            {mood === "super"
+                              ? "Super"
+                              : mood === "happy"
+                                ? "Happy"
+                                : mood === "meh"
+                                  ? "Meh"
+                                  : mood === "sad"
+                                    ? "Sad"
+                                    : mood === "angry"
+                                      ? "Angry"
+                                      : "None"}
+                          </span>
                         </button>
                       ))}
                     </div>
@@ -170,10 +194,42 @@ export default function EditMoodModal({
                   </>
                 )}
               />
-              <div>
-                <Label htmlFor="">Category</Label>
-                <Input type="text" id="" value="" onChange={() => {}} />
-              </div>
+              <p>Category</p>
+
+              <form.Field
+                name="category"
+                validators={{
+                  onChange: createMoodSchema.shape.category,
+                }}
+              >
+                {(field) => (
+                  <>
+                    <div className="flex flex-row gap-3 items-center justify-center">
+                      {Object.entries(categoryNames).map(([category, Icon]) => (
+                        <div
+                          key={category}
+                          className={`p-2 rounded-lg text-sm hover:bg-blue-200 ${
+                            field.state.value === category
+                              ? "bg-blue-200"
+                              : "bg-gray-200"
+                          }`}
+                          onClick={() =>
+                            field.handleChange(category as Category)
+                          }
+                        >
+                          {Icon}
+                        </div>
+                      ))}
+                    </div>
+                    {field.state.meta.isTouched &&
+                    field.state.meta.errors.length ? (
+                      <em className="text-red-700">
+                        {field.state.meta.errors.join(", ")}
+                      </em>
+                    ) : null}
+                  </>
+                )}
+              </form.Field>
               <form.Field
                 name="notes"
                 validators={{
