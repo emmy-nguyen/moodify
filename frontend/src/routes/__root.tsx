@@ -20,9 +20,6 @@ function NavBar() {
       <Link to="/" className="[&.active]:font-bold">
         Home
       </Link>
-      <Link to="/about" className="[&.active]:font-bold">
-        About
-      </Link>
       <Link to="/all-moods" className="[&.active]:font-bold">
         All Moods
       </Link>

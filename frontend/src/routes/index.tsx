@@ -1,10 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-// import "./App.css";
-// import { api } from "./lib/api";
-// import { useState } from "react";
-// import { Line } from "react-chartjs-2";
-// import { useQuery } from "@tanstack/react-query";
-import { Button } from "../components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,18 +6,26 @@ import {
   CardTitle,
 } from "../components/ui/card";
 import { Calendar } from "../components/ui/calendar";
+import { useQuery } from "@tanstack/react-query";
+import { getAllMoodsQueryOptions, userQueryOptions } from "../lib/api";
+import Happy from "../components/moodIcons/happy";
+import Super from "../components/moodIcons/super";
+import Angry from "../components/moodIcons/angry";
+import Meh from "../components/moodIcons/meh";
+import Sad from "../components/moodIcons/sad";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  // const { isPending, error, data } = useQuery({
-  //   queryKey: ["get-total-spent"],
-  //   queryFn: getTotalSpent,
-  // });
-  // if (isPending) return "Loading...";
-  // if (error) return "An error occurred";
+  const { isPending: userLoading, data: userData } = useQuery(userQueryOptions);
+  const { isPending: moodsLoading, data: moodsData } = useQuery(
+    getAllMoodsQueryOptions
+  );
+
+  if (userLoading || moodsLoading) return "Loading...";
+  const recentMood = moodsData?.moods[0];
 
   return (
     <>
@@ -31,92 +33,102 @@ function Index() {
         {/* Header */}
         <header className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Hello, Jane!</h1>
+            <h1 className="text-2xl font-semibold">
+              Hello, {userData?.user ? userData?.user.given_name : "Guest"}!
+            </h1>
             <p className="text-muted-foreground">How are you feeling today?</p>
           </div>
-          <Button className="bg-primary">Log Today's Mood</Button>
+          <a
+            href="/create-mood"
+            className="bg-black hover:bg-yellow-500 text-white text-sm font-semi py-2 px-4 rounded-lg transition duration-300"
+          >
+            Log Today's Mood
+          </a>
         </header>
 
         {/* Mood Overview */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <section className="grid gap-4">
           <Card className="col-span-1 md:col-span-2">
             <CardHeader>
               <CardTitle>Mood Overview</CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-lg">Your last mood: 😊 Happy (8/10)</p>
-              {/*  <Line data={moodTrendData} /> */}
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Highlights</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc pl-4">
-                <li>You've felt mostly happy this week!</li>
-                <li>Tuesday was your best day.</li>
-              </ul>
+            <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
+              {userData?.user && recentMood ? (
+                <>
+                  <div className="flex flex-col items-center md:items-start">
+                    <div className="flex items-center gap-2 text-lg">
+                      {recentMood.mood === "happy" ? (
+                        <>
+                          <Happy /> <span className="ml-2">Happy</span>
+                        </>
+                      ) : recentMood.mood === "super" ? (
+                        <>
+                          <Super /> <span className="ml-2">Super</span>
+                        </>
+                      ) : recentMood.mood === "angry" ? (
+                        <>
+                          <Angry /> <span className="ml-2">Angry</span>
+                        </>
+                      ) : recentMood.mood === "meh" ? (
+                        <>
+                          <Meh /> <span className="ml-2">Meh</span>
+                        </>
+                      ) : recentMood.mood === "sad" ? (
+                        <>
+                          <Sad /> <span className="ml-2">Sad</span>
+                        </>
+                      ) : (
+                        "No mood yet"
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center md:items-start mt-4">
+                    <div
+                      className={`flex items-center justify-center rounded-lg ${recentMood.category === "project" ? "bg-yellow-200" : recentMood.category === "exam" ? "bg-blue-200" : recentMood.category === "study" ? "bg-green-200" : recentMood.category === "class" ? "bg-red-200" : recentMood.category === "assignment" ? "bg-purple-200" : "bg-gray-200"} w-[100px]`}
+                    >
+                      {recentMood.category}
+                    </div>
+
+                    <div className="mt-2 text-sm text-gray-600">
+                      <span className="font-medium">Date & Time:</span>{" "}
+                      {recentMood.time} -
+                      {new Date(recentMood.date).toDateString()}
+                    </div>
+                    <div className="mt-1 text-sm text-gray-600">
+                      <span className="font-medium">Note:</span>{" "}
+                      {recentMood.notes}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p className="text-center text-gray-500">
+                  You need to log in to see your mood
+                </p>
+              )}
             </CardContent>
           </Card>
         </section>
 
-        {/* Calendar */}
         <section>
           <Card>
             <CardHeader>
               <CardTitle>Calendar</CardTitle>
             </CardHeader>
-            <CardContent>
-              <Calendar
-              // onDayClick={(day) => console.log("Selected Day:", day)}
-              // modifiers={{
-              //   logged: moods?.calendarDays.map((day) => new Date(day.date)),
-              // }}
-              // modifiersClassNames={{
-              //   logged: "bg-primary text-white",
-              // }}
-              />
+            <CardContent className="flex items-center justify-center">
+              <Calendar />
             </CardContent>
           </Card>
         </section>
 
-        {/* Daily Tip */}
         <section>
           <Card>
             <CardHeader>
               <CardTitle>Tip of the Day</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg italic">
+              <p className="text-lg italic flex items-center justify-center">
                 "Take a deep breath and enjoy the little things in life 🌱."
               </p>
-              <Button variant="link">Explore Exercises</Button>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Shortcuts */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
-            <CardContent>
-              <Button variant="ghost" className="w-full">
-                View Full Analytics
-              </Button>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <Button variant="ghost" className="w-full">
-                Explore Mental Health Exercises
-              </Button>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <Button variant="ghost" className="w-full">
-                Upcoming Events & Reminders
-              </Button>
             </CardContent>
           </Card>
         </section>
@@ -124,42 +136,3 @@ function Index() {
     </>
   );
 }
-
-// export default function Home() {
-// const { data: moods } = useQuery(["moods"], fetchMoodData);
-
-// const moodTrendData = {
-//   labels: moods?.last7Days.map((day) => day.date) || [],
-//   datasets: [
-//     {
-//       label: "Mood Trend",
-//       data: moods?.last7Days.map((day) => day.score) || [],
-//       borderColor: "#4ade80", // Green color for mood trend
-//       backgroundColor: "rgba(74, 222, 128, 0.2)",
-//     },
-//   ],
-// };
-
-//   return (
-
-//   );
-// }
-
-// Mock fetch function for moods
-// async function fetchMoodData() {
-//   return {
-//     last7Days: [
-//       { date: "Mon", score: 7 },
-//       { date: "Tue", score: 8 },
-//       { date: "Wed", score: 6 },
-//       { date: "Thu", score: 5 },
-//       { date: "Fri", score: 7 },
-//       { date: "Sat", score: 9 },
-//       { date: "Sun", score: 8 },
-//     ],
-//     calendarDays: [
-//       { date: "2024-11-13", mood: "Happy" },
-//       { date: "2024-11-14", mood: "Stressed" },
-//     ],
-//   };
-// }
