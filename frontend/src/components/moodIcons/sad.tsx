@@ -10,17 +10,17 @@ export default function Sad() {
       >
         <g clip-path="url(#clip0_1_61)">
           <g filter="url(#filter0_i_1_61)">
-            <circle cx="24" cy="24" r="24" fill="url(#paint0_radial_1_61)" />
+            <circle cx="24" cy="24" r="24" fill="#ff7b7f" />
           </g>
           <path
             d="M19 33.5V33.5C21.7251 29.7839 27.2749 29.7839 30 33.5V33.5"
-            stroke="#DE6102"
+            stroke="black"
             stroke-width="1.5"
             stroke-linecap="round"
           />
           <path
             d="M13 23L13.5938 23.4241C15.3323 24.6659 17.6677 24.6659 19.4062 23.4241L20 23"
-            stroke="#232333"
+            stroke="black"
             stroke-width="1.5"
             stroke-linecap="round"
           />

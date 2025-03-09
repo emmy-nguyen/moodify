@@ -10,11 +10,11 @@ export default function Meh() {
       >
         <g clip-path="url(#clip0_1_95)">
           <g filter="url(#filter0_i_1_95)">
-            <circle cx="24" cy="24" r="24" fill="url(#paint0_radial_1_95)" />
+            <circle cx="24" cy="24" r="24" fill="#ffb299" />
           </g>
           <path
             d="M19 33.5H24.5H30"
-            stroke="#DE6102"
+            stroke="black"
             stroke-width="1.5"
             stroke-linecap="round"
           />

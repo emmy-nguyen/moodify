@@ -10,17 +10,17 @@ export default function Happy() {
       >
         <g clip-path="url(#clip0_1_131)">
           <g filter="url(#filter0_i_1_131)">
-            <circle cx="24" cy="24" r="24" fill="url(#paint0_radial_1_131)" />
+            <circle cx="24" cy="24" r="24" fill="#f9c84b" />
           </g>
           <path
             d="M18 30.5L18.261 30.9216C21.0172 35.3739 27.5703 35.1386 30 30.5V30.5"
-            stroke="#DE6102"
+            stroke="black"
             stroke-width="1.5"
             stroke-linecap="round"
           />
           <path
             d="M14 23V23C14.7336 20.5059 18.2664 20.5059 19 23V23"
-            stroke="#232333"
+            stroke="black"
             stroke-width="1.5"
             stroke-linecap="round"
           />

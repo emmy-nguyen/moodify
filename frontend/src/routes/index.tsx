@@ -14,6 +14,7 @@ import Angry from "../components/moodIcons/angry";
 import Meh from "../components/moodIcons/meh";
 import Sad from "../components/moodIcons/sad";
 import MoodChart from "../components/mood-chart";
+import MoodGaugeChart from "../components/mood-gauge-chart";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -130,6 +131,17 @@ function Index() {
             </CardHeader>
             <CardContent>
               <MoodChart />
+            </CardContent>
+          </Card>
+        </section>
+
+        <section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Mood Count</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MoodGaugeChart />
             </CardContent>
           </Card>
         </section>

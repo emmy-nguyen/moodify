@@ -10,17 +10,17 @@ export default function Angry() {
       >
         <g clip-path="url(#clip0_1_11)">
           <g filter="url(#filter0_i_1_11)">
-            <circle cx="24" cy="24" r="24" fill="url(#paint0_radial_1_11)" />
+            <circle cx="24" cy="24" r="24" fill="#97a0a3" />
           </g>
           <path
             d="M17 33.5L18.8431 31.6569C21.9673 28.5327 27.0327 28.5327 30.1569 31.6569L32 33.5"
-            stroke="#DE6102"
+            stroke="black"
             stroke-width="1.5"
             stroke-linecap="round"
           />
           <path
             d="M11 16L19 19"
-            stroke="#232333"
+            stroke="black"
             stroke-width="1.5"
             stroke-linecap="round"
           />
