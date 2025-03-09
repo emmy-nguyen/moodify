@@ -15,7 +15,7 @@ function Profile() {
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
       <div className="flex flex-col items-center mb-6">
         <img
-          src="/public/smile.jpg"
+          src="/smile.jpg"
           alt="Avatar"
           className="w-20 h-20 rounded-full mb-4"
         />

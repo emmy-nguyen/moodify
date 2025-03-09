@@ -13,6 +13,7 @@ import Super from "../components/moodIcons/super";
 import Angry from "../components/moodIcons/angry";
 import Meh from "../components/moodIcons/meh";
 import Sad from "../components/moodIcons/sad";
+import MoodChart from "../components/mood-chart";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -118,6 +119,17 @@ function Index() {
             </CardHeader>
             <CardContent className="flex items-center justify-center">
               <Calendar />
+            </CardContent>
+          </Card>
+        </section>
+
+        <section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Mood Chart</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MoodChart />
             </CardContent>
           </Card>
         </section>
