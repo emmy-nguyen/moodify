@@ -84,3 +84,17 @@ export async function updateMood({
   const updatedMood = await res.json();
   return updatedMood;
 }
+export async function getQuote() {
+  const res = await api.quote.$get();
+  if (!res.ok) {
+    throw new Error("server error");
+  }
+  const data = await res.json();
+  return data;
+}
+
+export const getQuoteQueryOptions = queryOptions({
+  queryKey: ["get-quote"],
+  queryFn: getQuote,
+  staleTime: 1000 * 60 * 60 * 12,
+});

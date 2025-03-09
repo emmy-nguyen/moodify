@@ -8,39 +8,39 @@ export default function Angry() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_1_11)">
+        <g clipPath="url(#clip0_1_11)">
           <g filter="url(#filter0_i_1_11)">
             <circle cx="24" cy="24" r="24" fill="#97a0a3" />
           </g>
           <path
             d="M17 33.5L18.8431 31.6569C21.9673 28.5327 27.0327 28.5327 30.1569 31.6569L32 33.5"
             stroke="black"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M11 16L19 19"
             stroke="black"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M36 16L28 19"
             stroke="#232333"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M14 23L14.3787 23.3787C15.5503 24.5503 17.4497 24.5503 18.6213 23.3787L19 23"
             stroke="#232333"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M29 23L29.3787 23.3787C30.5503 24.5503 32.4497 24.5503 33.6213 23.3787L34 23"
             stroke="#232333"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
         </g>
         <defs>
@@ -51,9 +51,9 @@ export default function Angry() {
             width="49"
             height="50"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -87,11 +87,11 @@ export default function Angry() {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(39) rotate(125.293) scale(54.5206)"
           >
-            <stop stop-color="#FFFAEB" />
-            <stop offset="0.21875" stop-color="#F5D163" />
-            <stop offset="0.494792" stop-color="#FAD967" />
-            <stop offset="0.791667" stop-color="#F2B456" />
-            <stop offset="1" stop-color="#F78228" />
+            <stop stopColor="#FFFAEB" />
+            <stop offset="0.21875" stopColor="#F5D163" />
+            <stop offset="0.494792" stopColor="#FAD967" />
+            <stop offset="0.791667" stopColor="#F2B456" />
+            <stop offset="1" stopColor="#F78228" />
           </radialGradient>
           <clipPath id="clip0_1_11">
             <rect width="48" height="48" fill="white" />

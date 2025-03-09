@@ -87,76 +87,78 @@ function AllMoods() {
   };
   return (
     <>
-      {/* skeleton here */}
-      {loadingCreateMood?.mood && (
-        <div className="mt-4">
-          <div className="w-full flex items-center space-x-4">
-            <Skeleton className="h-12 w-12 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 " />
-              <Skeleton className="h-4 " />
-            </div>
-          </div>
-        </div>
-      )}
-      {isPending ? (
-        "..."
-      ) : (
-        <div className="mt-4">
-          {Object.keys(groupedMoodsByDate).map((date) => (
-            <div className="w-full rounded-lg border-[1px] mb-4">
-              <div key={date}>
-                <div className="w-full bg-[#FEF0D3] rounded-t-lg flex items-center justify-start">
-                  <h2 className="text-[#E5B73F] text-lg p-2">{date}</h2>
-                </div>
-                <div className="my-2">
-                  {groupedMoodsByDate[date].map((mood) => (
-                    <div key={mood.id} className="grid grid-cols-5 p-2">
-                      <div className="flex items-center justify-center">
-                        {renderMoodIcon(mood.mood)}
-                      </div>
-                      <div className="flex flex-col gap-y-2">
-                        <div className="flex flex-row items-center">
-                          <p className="mr-4 font-semibold text-xl text-[#E5B73F]">
-                            {mood.mood}
-                          </p>
-                          <p>{mood.time}</p>
-                        </div>
-                        <div>
-                          Notes:
-                          <div>{mood.notes}</div>
-                        </div>
-                        <div
-                          className={`rounded-lg ${mood.category === "project" ? "bg-yellow-200" : mood.category === "exam" ? "bg-blue-200" : mood.category === "study" ? "bg-green-200" : mood.category === "class" ? "bg-red-200" : mood.category === "assignment" ? "bg-purple-200" : "bg-gray-200"} w-[100px]`}
-                        >
-                          <div className="flex items-center justify-center">
-                            {mood.category}
-                          </div>
-                        </div>
-                      </div>
-                      <div></div>
-                      <div></div>
-                      <div className="flex flex-col gap-y-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="cursor-pointer ml-auto mr-4"
-                          onClick={() => openModal(mood)}
-                        >
-                          <Pencil className="h-4 w-4 /" />
-                        </Button>
-                        <DeleteMoodButton id={mood.id} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+      <div className="bg-[#f5f0ec] p-4">
+        {/* skeleton here */}
+        {loadingCreateMood?.mood && (
+          <div className="mt-4">
+            <div className="w-full flex items-center space-x-4">
+              <Skeleton className="h-12 w-12 rounded-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 " />
+                <Skeleton className="h-4 " />
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        )}
+        {isPending ? (
+          "..."
+        ) : (
+          <div className="mt-4 bg-white">
+            {Object.keys(groupedMoodsByDate).map((date) => (
+              <div className="w-full rounded-lg border-[1px] mb-4">
+                <div key={date}>
+                  <div className="w-full bg-[#181818] rounded-t-lg flex items-center justify-start">
+                    <h2 className="text-white text-lg p-2">{date}</h2>
+                  </div>
+                  <div className="my-2">
+                    {groupedMoodsByDate[date].map((mood) => (
+                      <div key={mood.id} className="grid grid-cols-5 p-2">
+                        <div className="flex items-center justify-center">
+                          {renderMoodIcon(mood.mood)}
+                        </div>
+                        <div className="flex flex-col gap-y-2">
+                          <div className="flex flex-row items-center">
+                            <p className="mr-4 font-semibold text-xl text-[#E5B73F]">
+                              {mood.mood}
+                            </p>
+                            <p>{mood.time}</p>
+                          </div>
+                          <div>
+                            Notes:
+                            <div>{mood.notes}</div>
+                          </div>
+                          <div
+                            className={`rounded-lg ${mood.category === "project" ? "bg-yellow-200" : mood.category === "exam" ? "bg-blue-200" : mood.category === "study" ? "bg-green-200" : mood.category === "class" ? "bg-red-200" : mood.category === "assignment" ? "bg-purple-200" : "bg-gray-200"} w-[100px]`}
+                          >
+                            <div className="flex items-center justify-center">
+                              {mood.category}
+                            </div>
+                          </div>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div className="flex flex-col gap-y-2">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="cursor-pointer ml-auto mr-4"
+                            onClick={() => openModal(mood)}
+                          >
+                            <Pencil className="h-4 w-4 /" />
+                          </Button>
+                          <DeleteMoodButton id={mood.id} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
-      {isModalOpen && <EditMoodModal data={editMood} onClose={closeModal} />}
+        {isModalOpen && <EditMoodModal data={editMood} onClose={closeModal} />}
+      </div>
     </>
   );
 }

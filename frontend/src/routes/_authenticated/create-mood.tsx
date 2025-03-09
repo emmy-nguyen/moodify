@@ -92,8 +92,8 @@ function CreateMood() {
     },
   });
   return (
-    <div className="max-w-md m-auto p-4">
-      <div className="flex flex-col items-center">
+    <div className="max-w-md m-auto p-4 bg-[#f5f0ec]">
+      <div className="flex flex-col items-center bg-white p-2 rounded-lg">
         <h2 className="text-3xl font-medium mb-4">How are you today?</h2>
         <form
           onSubmit={(e) => {

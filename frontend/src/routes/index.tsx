@@ -15,6 +15,7 @@ import Meh from "../components/moodIcons/meh";
 import Sad from "../components/moodIcons/sad";
 import MoodChart from "../components/mood-chart";
 import MoodGaugeChart from "../components/mood-gauge-chart";
+import RandomQuote from "../components/random-quote";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -31,7 +32,7 @@ function Index() {
 
   return (
     <>
-      <div className="space-y-6 p-4 md:p-8">
+      <div className="space-y-6 p-4 bg-[#f5f0ec] md:p-8">
         {/* Header */}
         <header className="flex items-center justify-between">
           <div>
@@ -42,7 +43,7 @@ function Index() {
           </div>
           <a
             href="/create-mood"
-            className="bg-black hover:bg-yellow-500 text-white text-sm font-semi py-2 px-4 rounded-lg transition duration-300"
+            className="bg-[#181818] hover:bg-[#181818]/90 text-white text-sm font-semi py-2 px-4 rounded-lg transition duration-300"
           >
             Log Today's Mood
           </a>
@@ -152,9 +153,7 @@ function Index() {
               <CardTitle>Tip of the Day</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg italic flex items-center justify-center">
-                "Take a deep breath and enjoy the little things in life 🌱."
-              </p>
+              <RandomQuote />
             </CardContent>
           </Card>
         </section>

@@ -8,15 +8,15 @@ export default function Meh() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_1_95)">
+        <g clipPath="url(#clip0_1_95)">
           <g filter="url(#filter0_i_1_95)">
             <circle cx="24" cy="24" r="24" fill="#ffb299" />
           </g>
           <path
             d="M19 33.5H24.5H30"
             stroke="black"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <circle cx="32" cy="24" r="2" fill="#232333" />
           <circle cx="32" cy="24" r="2" fill="#232333" />
@@ -33,9 +33,9 @@ export default function Meh() {
             width="49"
             height="50"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -69,11 +69,11 @@ export default function Meh() {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(39) rotate(125.293) scale(54.5206)"
           >
-            <stop stop-color="#FFFAEB" />
-            <stop offset="0.21875" stop-color="#F5D163" />
-            <stop offset="0.494792" stop-color="#FAD967" />
-            <stop offset="0.791667" stop-color="#F2B456" />
-            <stop offset="1" stop-color="#F78228" />
+            <stop stopColor="#FFFAEB" />
+            <stop offset="0.21875" stopColor="#F5D163" />
+            <stop offset="0.494792" stopColor="#FAD967" />
+            <stop offset="0.791667" stopColor="#F2B456" />
+            <stop offset="1" stopColor="#F78228" />
           </radialGradient>
           <clipPath id="clip0_1_95">
             <rect width="48" height="48" fill="white" />

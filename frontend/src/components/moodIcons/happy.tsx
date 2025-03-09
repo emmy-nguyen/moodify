@@ -8,27 +8,27 @@ export default function Happy() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_1_131)">
+        <g clipPath="url(#clip0_1_131)">
           <g filter="url(#filter0_i_1_131)">
             <circle cx="24" cy="24" r="24" fill="#f9c84b" />
           </g>
           <path
             d="M18 30.5L18.261 30.9216C21.0172 35.3739 27.5703 35.1386 30 30.5V30.5"
             stroke="black"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M14 23V23C14.7336 20.5059 18.2664 20.5059 19 23V23"
             stroke="black"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <path
             d="M29 23V23C29.8008 20.5975 33.1992 20.5975 34 23V23"
             stroke="#232333"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
           <g opacity="0.5" filter="url(#filter1_f_1_131)">
             <rect x="31" y="27" width="5" height="5" rx="2.5" fill="#F72859" />
@@ -45,9 +45,9 @@ export default function Happy() {
             width="49"
             height="50"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -80,9 +80,9 @@ export default function Happy() {
             width="19"
             height="19"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -101,9 +101,9 @@ export default function Happy() {
             width="19"
             height="19"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -123,11 +123,11 @@ export default function Happy() {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(39) rotate(125.293) scale(54.5206)"
           >
-            <stop stop-color="#FFFAEB" />
-            <stop offset="0.21875" stop-color="#F5D163" />
-            <stop offset="0.494792" stop-color="#FAD967" />
-            <stop offset="0.791667" stop-color="#F2B456" />
-            <stop offset="1" stop-color="#F78228" />
+            <stop stopColor="#FFFAEB" />
+            <stop offset="0.21875" stopColor="#F5D163" />
+            <stop offset="0.494792" stopColor="#FAD967" />
+            <stop offset="0.791667" stopColor="#F2B456" />
+            <stop offset="1" stopColor="#F78228" />
           </radialGradient>
           <clipPath id="clip0_1_131">
             <rect width="48" height="48" fill="white" />
