@@ -2,11 +2,12 @@
 
 Moodify is a mood tracker app developed to help users better understand their emotional patterns and promote mental well-being. The idea was sparked by the intense stress my classmates and I faced during the IDSP project in my third term at BCIT.
 
-## Features
+## Current MVP
 
+- Homepage: Display your recent mood, calendar, mood count, mood chart and inspirational random quotes.
 - Log your mood: Capture your daily emotions using a simple interface with emojis, categories, and notes.
-- Show all mood: Show all mood by date
-- Edit & Delete your mood: Allow you to change and delete your mood
+- View all mood: Display all logged moods by date.
+- Edit & Delete your mood: Allow users to modify or remove recorded moods.
 
 ## Tech Stack
 
@@ -36,6 +37,14 @@ Moodify is a mood tracker app developed to help users better understand their em
 ### Authentication:
 
 - Kindle
+
+## Next Sprint:
+
+- Allow users to log their moods directly on the calendar.
+- Display all moods by date on the calendar.
+- Enable users to add photos to mood logs.
+- Expand mood categories and introduce sub-categories.
+- Implement a mood report feature.
 
 ## Installation Instructions:
 

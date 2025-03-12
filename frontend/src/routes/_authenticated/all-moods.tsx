@@ -105,18 +105,18 @@ function AllMoods() {
         ) : (
           <div className="mt-4 bg-white">
             {Object.keys(groupedMoodsByDate).map((date) => (
-              <div className="w-full rounded-lg border-[1px] mb-4">
-                <div key={date}>
+              <div key={date} className="w-full rounded-lg border-[1px] mb-4">
+                <div>
                   <div className="w-full bg-[#181818] rounded-t-lg flex items-center justify-start">
                     <h2 className="text-white text-lg p-2">{date}</h2>
                   </div>
                   <div className="my-2">
                     {groupedMoodsByDate[date].map((mood) => (
                       <div key={mood.id} className="grid grid-cols-5 p-2">
-                        <div className="flex items-center justify-center">
+                        <div className="col-span-1 flex items-center justify-center">
                           {renderMoodIcon(mood.mood)}
                         </div>
-                        <div className="flex flex-col gap-y-2">
+                        <div className="col-span-3 flex flex-col gap-y-2">
                           <div className="flex flex-row items-center">
                             <p className="mr-4 font-semibold text-xl text-[#E5B73F]">
                               {mood.mood}
@@ -135,9 +135,9 @@ function AllMoods() {
                             </div>
                           </div>
                         </div>
-                        <div></div>
-                        <div></div>
-                        <div className="flex flex-col gap-y-2">
+                        {/* <div></div>
+                        <div></div> */}
+                        <div className="col-span-1 flex flex-col gap-y-2">
                           <Button
                             variant="outline"
                             size="icon"

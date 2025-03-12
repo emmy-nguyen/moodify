@@ -16,12 +16,14 @@ import Sad from "../components/moodIcons/sad";
 import MoodChart from "../components/mood-chart";
 import MoodGaugeChart from "../components/mood-gauge-chart";
 import RandomQuote from "../components/random-quote";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const { isPending: userLoading, data: userData } = useQuery(userQueryOptions);
   const { isPending: moodsLoading, data: moodsData } = useQuery(
     getAllMoodsQueryOptions
@@ -29,6 +31,7 @@ function Index() {
 
   if (userLoading || moodsLoading) return "Loading...";
   const recentMood = moodsData?.moods[0];
+  const user = userData?.user;
 
   return (
     <>
@@ -37,7 +40,7 @@ function Index() {
         <header className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold">
-              Hello, {userData?.user ? userData?.user.given_name : "Guest"}!
+              {user ? `Hello ${user.given_name}` : "Hi Guest"}!
             </h1>
             <p className="text-muted-foreground">How are you feeling today?</p>
           </div>
@@ -58,7 +61,7 @@ function Index() {
             <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
               {userData?.user && recentMood ? (
                 <>
-                  <div className="flex flex-col items-center md:items-start">
+                  <div className="flex flex-col items-start md:items-start">
                     <div className="flex items-center gap-2 text-lg">
                       {recentMood.mood === "happy" ? (
                         <>
@@ -120,33 +123,68 @@ function Index() {
               <CardTitle>Calendar</CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-center">
-              <Calendar />
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="rounded-md border shadow"
+              />
             </CardContent>
           </Card>
         </section>
+        {user ? (
+          <>
+            <section>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Mood Chart</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <MoodChart />
+                </CardContent>
+              </Card>
+            </section>
 
-        <section>
-          <Card>
-            <CardHeader>
-              <CardTitle>Mood Chart</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <MoodChart />
-            </CardContent>
-          </Card>
-        </section>
+            <section>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Mood Count</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <MoodGaugeChart />
+                </CardContent>
+              </Card>
+            </section>
+          </>
+        ) : (
+          <>
+            <section>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Mood Chart</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-center text-gray-500">
+                    You need to log in to view mood statistics.
+                  </p>
+                </CardContent>
+              </Card>
+            </section>
 
-        <section>
-          <Card>
-            <CardHeader>
-              <CardTitle>Mood Count</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <MoodGaugeChart />
-            </CardContent>
-          </Card>
-        </section>
-
+            <section>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Mood Count</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-center text-gray-500">
+                    You need to log in to view mood statistics.
+                  </p>
+                </CardContent>
+              </Card>
+            </section>
+          </>
+        )}
         <section>
           <Card>
             <CardHeader>
